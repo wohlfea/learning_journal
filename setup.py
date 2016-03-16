@@ -17,7 +17,10 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'psycopg2',
     ]
+tests_require = ['pytest', 'pytest-watch', 'tox']
+dev_requires = ['ipython', 'pyramid-ipython']
 
 setup(name='learning_journal',
       version='0.0',
@@ -38,10 +41,14 @@ setup(name='learning_journal',
       zip_safe=False,
       test_suite='learning_journal',
       install_requires=requires,
+      extras_require={
+        'test': tests_require,
+        'dev': dev_requires,
+      },
       entry_points="""\
       [paste.app_factory]
       main = learning_journal:main
       [console_scripts]
-      initialize_learning_journal_db = learning_journal.scripts.initializedb:main
+      initializedb = learning_journal.scripts.initializedb:initialize_db
       """,
       )
