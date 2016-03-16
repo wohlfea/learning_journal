@@ -16,7 +16,11 @@ def my_view(request):
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     return {'one': one, 'project': 'learning_journal'}
-
+# OR
+# @view_config(route_name='my_route', renderer='templates/dessert.jinja2', match_param='dessert=cheesecake')
+# def dessert_view(request):
+#     import pdb; pdb.set_trace()
+#     return 'Cheesecake is yummy!'
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
@@ -33,4 +37,3 @@ might be caused by one of the following things:
 After you fix the problem, please restart the Pyramid application to
 try it again.
 """
-
