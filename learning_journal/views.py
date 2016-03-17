@@ -16,15 +16,15 @@ from .models import (
 #     except DBAPIError:
 #         return Response(conn_err_msg, content_type='text/plain', status_int=500)
 #     return {'one': one, 'project': 'learning_journal'}
-    
 
-@view_config(route_name='home', renderer='templates/entry_template.jinja2')
-def home_view(request):
+
+@view_config(route_name='home', renderer='templates/list.jinja2')
+def list(request):
     try:
-        article = DBSession.query(Entry).first()
+        articles = DBSession.query(Entry).all()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'title': article.title, 'text': article.text}
+    return {'articles': articles}
     # import pdb; pdb.set_trace()
     # return 'Cheesecake is yummy!'
 
