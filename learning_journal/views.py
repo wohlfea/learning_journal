@@ -16,11 +16,17 @@ from .models import (
 #     except DBAPIError:
 #         return Response(conn_err_msg, content_type='text/plain', status_int=500)
 #     return {'one': one, 'project': 'learning_journal'}
-# OR
-# @view_config(route_name='my_route', renderer='templates/dessert.jinja2', match_param='dessert=cheesecake')
-# def dessert_view(request):
-#     import pdb; pdb.set_trace()
-#     return 'Cheesecake is yummy!'
+    
+
+@view_config(route_name='home', renderer='templates/entry_template.jinja2')
+def home_view(request):
+    try:
+        article = DBSession.query(Entry).first()
+    except DBAPIError:
+        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+    return {'title': article.title, 'text': article.text}
+    # import pdb; pdb.set_trace()
+    # return 'Cheesecake is yummy!'
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
