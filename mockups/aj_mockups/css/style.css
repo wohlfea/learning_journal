@@ -1,3 +1,10 @@
 .btn {
     margin-top: 10px
 }
+a:hover {
+    text-decoration: none;
+}
+
+.lj_heading {
+    margin-top: -15px;
+}
