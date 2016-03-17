@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy import (
     Column,
     Index,
@@ -27,4 +28,4 @@ class Entry(Base):
     # Try varchar here if it doens't work
     title = Column(Unicode(128), unique=True, nullable=False)
     text = Column(UnicodeText)
-    created = Column(DateTime)
+    created = Column(DateTime, default=datetime.datetime.now())
