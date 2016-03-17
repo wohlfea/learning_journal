@@ -20,7 +20,7 @@ requires = [
     'psycopg2',
     ]
 tests_require = ['pytest', 'pytest-watch', 'tox']
-dev_requires = ['ipython', 'pyramid-ipython']
+dev_requires = ['ipython', 'pyramid-ipython', 'webtest']
 
 setup(name='learning_journal',
       version='0.0',
