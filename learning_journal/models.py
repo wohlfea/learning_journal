@@ -28,4 +28,7 @@ class Entry(Base):
     # Try varchar here if it doens't work
     title = Column(Unicode(128), unique=True, nullable=False)
     text = Column(UnicodeText)
-    created = Column(DateTime, default=datetime.datetime.now())
+    # The default value can either take a scaler value OR
+    # It can take a callable, such as datetime.datetime.now()
+    # We want datetime.datetime.utcnow()
+    created = Column(DateTime, default=datetime.datetime.utcnow())
