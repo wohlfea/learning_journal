@@ -32,8 +32,13 @@ def list(request):
 @view_config(route_name='article', renderer='templates/detail.jinja2')
 def detail(request):
     try:
-        article_id = '{article_id}'.format(**request.matchdict)
-        article = DBSession.query(Entry).filter(Entry.id == article_id).first()
+        # We can change this commented out code to what has been changed:
+        # article_id = '{article_id}'.format(**request.matchdict)
+        # It'd be a good idea to import PDB and set a breakpoint here to play around.
+        article_id = request.matchdict['article_id']
+        #Instead of this code we could do:
+        # article = DBSession.query(Entry).filter(Entry.id == article_id).first()
+        article = DBSession.query(Entry).get(article_id)
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     return {'article': article}
