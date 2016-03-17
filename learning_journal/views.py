@@ -28,6 +28,16 @@ def list(request):
     # import pdb; pdb.set_trace()
     # return 'Cheesecake is yummy!'
 
+
+@view_config(route_name='article', renderer='templates/detail.jinja2')
+def detail(request):
+    try:
+        article_id = '{article_id}'.format(**request.matchdict)
+        article = DBSession.query(Entry).filter(Entry.id == article_id).first()
+    except DBAPIError:
+        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+    return {'article': article}
+
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:
