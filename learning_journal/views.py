@@ -13,7 +13,7 @@ def list_view(request):
 
 
 @view_config(route_name='article', renderer='templates/detail.jinja2')
-def detail(request):
+def detail_view(request):
     """Detail view."""
     article_id = request.matchdict['article_id']
     article = DBSession.query(Entry).get(article_id)
