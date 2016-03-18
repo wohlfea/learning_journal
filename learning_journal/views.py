@@ -32,9 +32,8 @@ def add_entry_view(request):
         new_entry = Entry(title=form.title.data, text=form.text.data)
         DBSession.add(new_entry)
         DBSession.flush()
-        transaction.commit()
-        latest = DBSession.query(Entry).order_by(Entry.id.desc()).first()
-        url = request.route_url('article', article_id=latest.id)
+        # latest = DBSession.query(Entry).order_by(Entry.id.desc()).first()
+        url = request.route_url('article', article_id=new_entry.id)
         return HTTPFound(location=url)
     return {}
 
@@ -44,4 +43,10 @@ def edit_entry_view(request):
     """Edit entry view."""
     article_id = request.matchdict['article_id']
     article = DBSession.query(Entry).get(article_id)
+    form = EntryForm(request.POST)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(article)
+        url = request.route_url('article', article_id=article.id)
+        return HTTPFound(location=url)
     return {'article': article}
+
