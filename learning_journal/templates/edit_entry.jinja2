@@ -1,0 +1,9 @@
+{% block content %}
+    <a href="/">Home</a>
+    <form action="edit_entry/{{ article.id }}" method="POST">
+        <h4>Title</h4>
+        <input name="title" value="{{ article.title }}" required></input>
+        <textarea name="text" required>{{ article.text }}</textarea>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

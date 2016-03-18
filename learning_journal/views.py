@@ -37,3 +37,11 @@ def add_entry_view(request):
         url = request.route_url('article', article_id=latest.id)
         return HTTPFound(location=url)
     return {}
+
+
+@view_config(route_name='edit_entry', renderer='templates/edit_entry.jinja2')
+def edit_entry_view(request):
+    """Edit entry view."""
+    article_id = request.matchdict['article_id']
+    article = DBSession.query(Entry).get(article_id)
+    return {'article': article}
