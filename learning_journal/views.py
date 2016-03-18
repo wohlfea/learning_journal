@@ -6,7 +6,7 @@ from .models import (
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2')
-def list(request):
+def list_view(request):
     """List view."""
     articles = DBSession.query(Entry).all()
     return {'articles': articles}
