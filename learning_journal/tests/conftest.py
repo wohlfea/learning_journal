@@ -54,3 +54,16 @@ def app(dbtransaction):
     fake_settings = {'sqlalchemy.url': TEST_DATABASE_URL}
     app = main({}, **fake_settings)
     return TestApp(app)
+
+
+@pytest.fixture()
+def dummy_post(dbtransaction):
+    from pyramid.testing import DummyRequest
+    from webob.multidict import MultiDict
+    req = DummyRequest()
+    req.method = 'POST'
+    md = MultiDict()
+    md.add('title', 'dummy title')
+    md.add('text', 'dummy text')
+    req.POST = md
+    return req
