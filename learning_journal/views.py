@@ -52,6 +52,6 @@ def edit_entry_view(request):
     form = EntryForm(request.POST)
     if request.method == 'POST' and form.validate():
         form.populate_obj(article)
-        url = request.route_url('article', article_id=article.id)
+        url = '/article/{}'.format(article.id)
         return HTTPFound(location=url)
     return {'article': article}

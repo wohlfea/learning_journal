@@ -33,7 +33,6 @@ def test_edit_entry_view_functional_0(loaded_db_item, app):
     from learning_journal.models import Entry, DBSession
     response = app.post('/edit_entry/{}'.format(loaded_db_item.id),
                         {'title': 'new title', 'text': 'new text'})
-    assert response.status_code == 302
     new = DBSession.query(Entry).filter(Entry.id == loaded_db_item.id).first()
     assert new.title == 'new title'
     assert new.text == 'new text'
@@ -44,11 +43,12 @@ def test_edit_entry_view_unit_0(loaded_db_item):
     from learning_journal.views import edit_entry_view
     from webob.multidict import MultiDict
     article_id = str(loaded_db_item.id)
-    req = DummyRequest()
-    req.matchdict = {'article_id': article_id}
     md = MultiDict()
     md.add('title', 'new title')
     md.add('text', 'new text')
+    req = DummyRequest()
+    req.matchdict = {'article_id': article_id}
     req.POST = md
+    req.method = 'POST'
     response = edit_entry_view(req)
-    assert response
+    assert response.status_code == 302
