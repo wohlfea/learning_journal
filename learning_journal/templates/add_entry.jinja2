@@ -1,9 +1,10 @@
 {% block content %}
     <a href="/">Home</a>
     <form action="" method="POST">
+        <h2>{{ error_msg }}</h2>
         <h4>Title</h4>
-        <input name="title" required></input>
-        <textarea name="text" required></textarea>
+        <input name="title" value="{{ rej_title }}" required></input>
+        <textarea name="text" required>{{ rej_text }}</textarea>
         <button type="submit">Submit</button>
     </form>
 {% endblock %}

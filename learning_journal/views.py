@@ -7,7 +7,7 @@ from .models import (
     DBSession,
     Entry,
 )
-from forms import EntryForm
+from learning_journal.forms import EntryForm
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2')
@@ -33,9 +33,12 @@ def add_entry_view(request):
     form = EntryForm(request.POST)
     if request.method == 'POST' and form.validate():
         new_entry = Entry(title=form.title.data, text=form.text.data)
+        not_in_db = DBSession.query(Entry).filter(Entry.title == new_entry.title).first()
+        if not_in_db:
+            error_msg = 'That title has already been used.'
+            return {'error_msg': error_msg, 'rej_title': new_entry.title, 'rej_text': new_entry.text}
         DBSession.add(new_entry)
         DBSession.flush()
-        # latest = DBSession.query(Entry).order_by(Entry.id.desc()).first()
         url = request.route_url('article', article_id=new_entry.id)
         return HTTPFound(location=url)
     return {}
