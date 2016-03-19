@@ -20,9 +20,11 @@ def list_view(request):
 @view_config(route_name='article', renderer='templates/detail.jinja2')
 def detail_view(request):
     """Detail view."""
+    md = markdown.Markdown(safe_mode='replace', html_replacement_text='NO')
     article_id = request.matchdict['article_id']
     article = DBSession.query(Entry).get(article_id)
-    return {'article': article}
+    text = md.convert(article.text)
+    return {'article': article, 'text': text}
 
 
 @view_config(route_name='add_entry', renderer='templates/add_entry.jinja2')
@@ -50,4 +52,3 @@ def edit_entry_view(request):
         url = request.route_url('article', article_id=article.id)
         return HTTPFound(location=url)
     return {'article': article}
-

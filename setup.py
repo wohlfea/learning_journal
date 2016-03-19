@@ -19,6 +19,7 @@ requires = [
     'waitress',
     'psycopg2',
     'wtforms',
+    'markdown'
     ]
 tests_require = ['pytest', 'pytest-watch', 'tox']
 dev_requires = ['ipython', 'pyramid-ipython', 'webtest']
