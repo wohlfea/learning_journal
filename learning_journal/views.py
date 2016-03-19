@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import transaction
+import markdown
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from .models import (

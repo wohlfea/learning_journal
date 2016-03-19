@@ -1,7 +1,7 @@
 {% block content %}
     <a href="/">Home</a>
     <h4>{{ article.title }}</h4>
-    <p>{{ article.text }}</p>
+    <p>{{ article.text|markdown }}</p>
     <p>{{ article.created }}</p>
     <a href="/edit_entry/{{ article.id }}">Edit</a>
 {% endblock %}
