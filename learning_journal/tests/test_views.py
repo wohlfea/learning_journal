@@ -19,21 +19,20 @@ def test_detail_view(loaded_db_item):
     assert response['article'].title == "jill"
 
 
-def test_edit_entry_view_get(loaded_db_item):
-    """Test if the edit entry view returns the expected dict on get request."""
-    from learning_journal.views import edit_entry_view
-    req = DummyRequest()
-    req.matchdict = {'article_id': str(loaded_db_item.id)}
-    response = edit_entry_view(req)
-    assert response['article'].title == 'jill'
+def test_detail_view_1(loaded_db_item, app):
+    """Test if the detail_view returns the expected dict."""
+    response = app.get('/article/{}'.format(loaded_db_item.id))
+    assert response.status_code == 200
 
 
-# def test_edit_entry_view(loaded_db_item):
-#     """Test if the expected dict is returned on Post request."""
-#     from learning_journal.views import edit_entry_view
-#     req = DummyRequest()
-#     req.matchdict = {'article_id': str(loaded_db_item.id)}
-#     req.POST['title'] = 'New Title'
-#     req.POST['text'] = 'New text for a new entry'
-#     response = edit_entry_view(req)
-#     assert response['article'].title == 'New Title'
+def test_edit_entry_view(loaded_db_item, app):
+    """Test if the response redirects user and db is updated."""
+    from collections import OrderedDict
+    from learning_journal.models import Entry, DBSession
+    response = app.post('/edit_entry/{}'.format(loaded_db_item.id),
+                        OrderedDict([('title', 'new title'),
+                                    ('text', 'new text')]))
+    assert response.status_code == 302
+    new = DBSession.query(Entry).filter(Entry.id == loaded_db_item.id).first()
+    assert new.title == 'new title'
+    assert new.text == 'new text'

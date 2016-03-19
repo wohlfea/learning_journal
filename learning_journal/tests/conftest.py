@@ -47,10 +47,10 @@ def loaded_db_item(dbtransaction):
     return new_model
 
 
-# @pytest.fixture()
-# def app(dbtransaction):
-#     from learning_journal import main
-#     from webtest import TestApp
-#     fake_settings = {'sqlalchemy.url': TEST_DATABASE_URL}
-#     app = main({}, **fake_settings)
-#     return TestApp(app)
+@pytest.fixture()
+def app(dbtransaction):
+    from learning_journal import main
+    from webtest import TestApp
+    fake_settings = {'sqlalchemy.url': TEST_DATABASE_URL}
+    app = main({}, **fake_settings)
+    return TestApp(app)
