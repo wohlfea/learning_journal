@@ -21,8 +21,8 @@ requires = [
     'wtforms',
     'markdown'
     ]
-tests_require = ['pytest', 'pytest-watch', 'tox']
-dev_requires = ['ipython', 'pyramid-ipython', 'webtest']
+tests_require = ['pytest', 'pytest-watch', 'tox', 'webtest']
+dev_requires = ['ipython', 'pyramid-ipython']
 
 setup(name='learning_journal',
       version='0.0',

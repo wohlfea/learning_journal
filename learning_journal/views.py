@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import transaction
 import markdown
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
@@ -33,13 +32,16 @@ def add_entry_view(request):
     form = EntryForm(request.POST)
     if request.method == 'POST' and form.validate():
         new_entry = Entry(title=form.title.data, text=form.text.data)
-        not_in_db = DBSession.query(Entry).filter(Entry.title == new_entry.title).first()
-        if not_in_db:
+        already_in_db = DBSession.query(Entry).filter(
+                        Entry.title == new_entry.title).first()
+        if already_in_db:
             error_msg = 'That title has already been used.'
-            return {'error_msg': error_msg, 'rej_title': new_entry.title, 'rej_text': new_entry.text}
+            return {'error_msg': error_msg,
+                    'rej_title': new_entry.title,
+                    'rej_text': new_entry.text}
         DBSession.add(new_entry)
         DBSession.flush()
-        url = request.route_url('article', article_id=new_entry.id)
+        url = '/article/{}'.format(new_entry.id)
         return HTTPFound(location=url)
     return {}
 
@@ -52,6 +54,6 @@ def edit_entry_view(request):
     form = EntryForm(request.POST)
     if request.method == 'POST' and form.validate():
         form.populate_obj(article)
-        url = request.route_url('article', article_id=article.id)
+        url = '/article/{}'.format(article.id)
         return HTTPFound(location=url)
     return {'article': article}
