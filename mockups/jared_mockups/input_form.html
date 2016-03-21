@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jared's Learning Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/vendor/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/module.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a class="button" href="index.html">Home</a></li>
+            <li><a class="button" href="detail.html">Detail</a></li>
+            <li><a class="button" href="input_form.html">Add</a></li>
+            <li><a class="button" href="edit_form.html">Edit</a></li>
+        </ul>
+    </nav>
+</header>
+    <section>
+        <form>
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <label for="title">Title</label>
+                    <input class="u-full-width" type="text" placeholder="Title" 
+                    id="title" required>
+                </div>
+                <div class="six columns"></div>
+            </div>
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <label for="entry">Entry</label>
+                    <textarea class="u-full-width" placeholder="Add an entry …" id="add-entry"></textarea>
+                </div>
+            </div>
+            <input class="button-primary" type="submit" value="Submit">
+        </form>
+    </section>
+<footer>
+    <ul>
+        <li><a href="#">Twitter</li>
+        <li><a href="#">GitHub</li>
+    </ul>
+</footer>
+</body>
+</html>

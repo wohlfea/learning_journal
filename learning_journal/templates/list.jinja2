@@ -1,0 +1,7 @@
+{% block content %}
+    <a href="/add_entry">Add Entry</a>
+    {% for article in articles[::-1] %}
+        <h4><a href="/article/{{ article.id }}">{{ article.title }}</a></h4>
+        <p>{{ article.created }}</p>
+    {% endfor %}
+{% endblock %}

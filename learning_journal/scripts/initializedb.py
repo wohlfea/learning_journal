@@ -1,6 +1,5 @@
 import os
 import sys
-import transaction
 
 from sqlalchemy import engine_from_config
 
@@ -13,7 +12,6 @@ from pyramid.scripts.common import parse_vars
 
 from ..models import (
     DBSession,
-    MyModel,
     Base,
     )
 
@@ -25,7 +23,7 @@ def usage(argv):
     sys.exit(1)
 
 
-def main(argv=sys.argv):
+def initialize_db(argv=sys.argv):
     if len(argv) < 2:
         usage(argv)
     config_uri = argv[1]
@@ -35,6 +33,3 @@ def main(argv=sys.argv):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
-    with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
