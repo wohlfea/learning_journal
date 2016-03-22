@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container">
+    <form action="" method="POST">
+        <h2>{{ error_msg }}</h2>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Username:</h2>
+                        <input name="login" class="form-control" value="" required></input>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-3">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Password:</h2>
+                        <input name="password" class="form-control" value="" required></input>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
