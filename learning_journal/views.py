@@ -27,7 +27,6 @@ def list_view(request):
 @view_config(route_name='home_admin', renderer='templates/list_admin.jinja2',
              permission='edit')
 def list_admin_view(request):
-    print('test print')
     articles = DBSession.query(Entry).all()
     return {'articles': articles}
 
