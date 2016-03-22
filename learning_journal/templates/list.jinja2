@@ -1,7 +1,29 @@
+{% extends "index.html" %}
 {% block content %}
-    <a href="/add_entry">Add Entry</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary" href="/add_entry">Create New Entry</a>
+            </div>
+        </div>
+    </div>
     {% for article in articles[::-1] %}
-        <h4><a href="/article/{{ article.id }}">{{ article.title }}</a></h4>
-        <p>{{ article.created }}</p>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <section id="articles">
+                <article id="article_template">
+                    <h1><a href="/article/{{ article.id }}">{{ article.title }}</a></h1>
+                    <p>Published: {{ article.created }}</time>
+                </article>
+            </section>
+            <hr>
+        </div>
+        <div class="col-sm-2">
+        </div>
+    </div>
     {% endfor %}
 {% endblock %}

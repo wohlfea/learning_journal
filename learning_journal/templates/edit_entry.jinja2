@@ -1,9 +1,43 @@
+{% extends "index.html" %}
 {% block content %}
-    <a href="/">Home</a>
+<div class="container">
     <form action="" method="POST">
-        <h4>Title</h4>
-        <input name="title" value="{{ article.title }}" required></input>
-        <textarea name="text" required>{{ article.text }}</textarea>
-        <button type="submit">Submit</button>
-    </form>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Title...</h2>
+                        <input name="title" class="form-control" value="{{ article.title }}" required></input>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <section id="forms">
+                    <div class="form-group">
+                        <h2>Article...</h2>
+                        <textarea name="text" class="form-control" placeholder="" rows="10" required>{{ article.text }}</textarea>
+                    </section>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-default">Re-submit</button>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
