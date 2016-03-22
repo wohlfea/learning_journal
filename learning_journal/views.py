@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import markdown
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPForbidden
 from pyramid.view import view_config
 from .models import (
     DBSession,
@@ -57,3 +57,12 @@ def edit_entry_view(request):
         url = '/article/{}'.format(article.id)
         return HTTPFound(location=url)
     return {'article': article}
+
+
+def forbidden_view(request):
+    # do not allow a user to login if they are already logged in
+    if authenticated_userid(request):
+        return HTTPForbidden()
+
+    loc = request.route_url('login', _query=(('next', request.path),))
+    return HTTPFound(location=loc)
