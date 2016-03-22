@@ -1,5 +1,14 @@
 {% extends "index.html" %}
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary" href="/add_entry">Create New Entry</a>
+            </div>
+        </div>
+    </div>
     {% for article in articles[::-1] %}
     <div class="row">
         <div class="col-md-2">

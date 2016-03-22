@@ -9,6 +9,7 @@ from .models import (
     )
 import os
 
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application."""
     database_url = os.environ.get('DATABASE_URL', None)
@@ -26,7 +27,9 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('home_admin', '/home')
     config.add_route('article', '/article/{article_id}')
+    config.add_route('article_admin', '/article_admin_view/{article_id}')
     config.add_route('add_entry', '/add_entry')
     config.add_route('edit_entry', '/edit_entry/{article_id}')
     config.scan()
