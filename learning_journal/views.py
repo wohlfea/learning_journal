@@ -66,3 +66,8 @@ def forbidden_view(request):
 
     loc = request.route_url('login', _query=(('next', request.path),))
     return HTTPFound(location=loc)
+
+
+@view_config(route_name='secure', renderer='string', permission='chicken')
+def secure_view(request):
+    return 'I am secure.'

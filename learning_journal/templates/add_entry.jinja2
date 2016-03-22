@@ -1,10 +1,24 @@
-{% block content %}
-    <a href="/">Home</a>
-    <form action="" method="POST">
-        <h2>{{ error_msg }}</h2>
-        <h4>Title</h4>
-        <input name="title" value="{{ rej_title }}" required></input>
-        <textarea name="text" required>{{ rej_text }}</textarea>
-        <button type="submit">Submit</button>
-    </form>
+{% extends "base.html" %}
+ <section>
+        <form action="" method="POST">
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <h4>{{ error_msg }}</h4>
+                    <label for="title">Title</label>
+                    <input class="u-full-width" type="text" value="{{ rej_title }}" placeholder="Title" 
+                    id="title" required>
+                </div>
+                <div class="six columns"></div>
+            </div>
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <label for="entry">Entry</label>
+                    <textarea class="u-full-width" placeholder="Add an entry …" id="add-entry">{{ rej_text }}</textarea>
+                </div>
+            </div>
+            <input class="button-primary" type="submit" value="Submit">
+        </form>
+    </section>
 {% endblock %}

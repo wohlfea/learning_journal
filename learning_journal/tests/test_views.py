@@ -38,7 +38,7 @@ def test_edit_entry_view_functional(loaded_db_item, app):
 
 
 def test_edit_entry_view_unit(loaded_db_item, dummy_post):
-    """Assert redirect upon valid POST Request"""
+    """Assert redirect upon valid POST Request."""
     from learning_journal.views import edit_entry_view
     article_id = str(loaded_db_item.id)
     dummy_post.matchdict = {'article_id': article_id}

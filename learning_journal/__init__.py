@@ -19,8 +19,9 @@ from .models import (
 
 class DefaultRoot(object):
     """I Hope this is the right place for an acl."""
-    __acl__ = [(Allow, Everyone, 'view'),
-               (Allow, Authenticated, ALL_PERMISSIONS)]
+    # __acl__ = [(Allow, Everyone, 'view'),
+    #            (Allow, Authenticated, ALL_PERMISSIONS)]
+    __acl__ = [(Allow, Everyone, 'chicken')]
 
     def __init__(self, request):
         """Init."""
@@ -41,6 +42,8 @@ def main(global_config, **settings):
         'sosecret', hashalg='sha512')
     authz_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings,
+                          # authentication_policy=authn_policy,
+                          # authorization_policy=authz_policy,
                           root_factory=DefaultRoot,)
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
@@ -50,5 +53,6 @@ def main(global_config, **settings):
     config.add_route('article', '/article/{article_id}')
     config.add_route('add_entry', '/add_entry')
     config.add_route('edit_entry', '/edit_entry/{article_id}')
+    config.add_route('secure', '/secure')
     config.scan()
     return config.make_wsgi_app()

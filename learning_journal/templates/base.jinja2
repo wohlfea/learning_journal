@@ -1,4 +1,32 @@
-{% block content %}
-{% block header %}
-{% endblock header %}
-{% endblock footer %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jared's Learning Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/vendor/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/module.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a class="button" href="index.html">Home</a></li>
+            <li><a class="button" href="detail.html">Detail</a></li>
+            <li><a class="button" href="input_form.html">Add</a></li>
+            <li><a class="button" href="edit_form.html">Edit</a></li>
+        </ul>
+    </nav>
+</header>
+{% block content %}{% endblock %}
+<footer>
+    <ul>
+        <li><a href="#">Twitter</li>
+        <li><a href="#">GitHub</li>
+    </ul>
+</footer>
+</body>
+</html>
