@@ -9,7 +9,6 @@ from pyramid.security import (
     remember,
     forget,
 )
-from .security import USERS
 from .models import (
     DBSession,
     Entry,
@@ -102,7 +101,7 @@ def login(request):
     if 'form.submitted' in request.params:
         login = request.params['login']
         password = request.params['password']
-        if USERS.get(login) == 'password':
+        if password == os.environ.get('AUTH_PASSWORD', None):
             headers = remember(request, login)
             return HTTPFound(location=came_from,
                              headers=headers)
