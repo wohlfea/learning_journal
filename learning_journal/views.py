@@ -14,6 +14,7 @@ from .models import (
     Entry,
 )
 from learning_journal.forms import EntryForm
+from learning_journal.security import check_pw
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2',
@@ -70,7 +71,7 @@ def edit_entry_view(request):
     return {'article': article}
 
 
-@view_config(context='.models.Entry', name='login',
+@view_config(context='learning_journal.security.MyRoot', name='login',
              renderer='templates/login.jinja2')
 @forbidden_view_config(renderer='templates/login.jinja2')
 def login(request):
@@ -82,14 +83,17 @@ def login(request):
     message = ''
     login = ''
     password = ''
-    if 'form.submitted' in request.params:
+    if 'login' in request.params or 'password' in request.params:
         login = request.params['login']
         password = request.params['password']
-        if password == os.environ.get('AUTH_PASSWORD', None):
+        print('validating pw')
+        if check_pw(password):
+            print('PW is Good!')
             headers = remember(request, login)
             return HTTPFound(location=came_from,
                              headers=headers)
-        message = 'Failed login'
+        print('PW is Bad!')
+        message = 'Incorrect Username or Password.'
     return dict(
         message=message,
         url=request.application_url + '/login',

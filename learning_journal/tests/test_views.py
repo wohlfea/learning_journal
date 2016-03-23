@@ -95,12 +95,18 @@ def test_username_exists():
     assert os.environ.get('AUTH_USERNAME', None) is not None
 
 
-def test_password_check_bad(auth_env):
+def test_hashed_password_check_bad(auth_env):
     from learning_journal.security import check_pw
     assert not check_pw('bad password')
 
 
-def test_password_valid(auth_env):
-    import os
+def test_hashed_password_valid(auth_env):
     from learning_journal.security import check_pw
     assert check_pw('secret')
+
+
+def test_assert_login_post_functional(auth_env, app):
+    data = {'login': 'admin', 'password': 'secret'}
+    init_response = app.get('/add_entry')
+    response = app.post('/add_entry', data)
+    assert 'title' in response.text.lower()

@@ -18,7 +18,8 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    authn_policy = AuthTktAuthenticationPolicy('sosecret')
+    auth_secret = os.environ.get('AUTH_SECRET')
+    authn_policy = AuthTktAuthenticationPolicy(auth_secret)
     authz_policy = ACLAuthorizationPolicy()
     config = Configurator(settings=settings,
                           root_factory='learning_journal.security.MyRoot')
