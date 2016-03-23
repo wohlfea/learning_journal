@@ -8,11 +8,7 @@ from passlib.apps import custom_app_context as pwd_context
 
 
 def check_pw(pw):
-    hashed = pwd_context.encrypt(os.environ.get('AUTH_PASSWORD'))
-    print('environ hash:')
-    print(hashed)
-    print('entered pw hash:')
-    print(pwd_context.encrypt(pw))
+    hashed = os.environ.get('AUTH_PASSWORD')
     return pwd_context.verify(pw, hashed)
 
 

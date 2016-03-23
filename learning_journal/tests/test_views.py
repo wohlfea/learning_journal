@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid.testing import DummyRequest
+import os
 
 
 def test_list_view_unit(loaded_db_item):
@@ -27,14 +28,14 @@ def test_detail_view_functional_0(loaded_db_item, app):
     assert loaded_db_item.title in response
 
 
-# def test_edit_entry_view_functional(loaded_db_item, app):
-#     """Test if the db updates upon request."""
-#     from learning_journal.models import Entry, DBSession
-#     app.post('/edit_entry/{}'.format(loaded_db_item.id),
-#              {'title': 'new title', 'text': 'new text'})
-#     new = DBSession.query(Entry).filter(Entry.id == loaded_db_item.id).first()
-#     assert new.title == 'new title'
-#     assert new.text == 'new text'
+def test_edit_entry_view_functional(loaded_db_item, authorized_app):
+    """Test if the db updates upon request."""
+    from learning_journal.models import Entry, DBSession
+    authorized_app.post('/edit_entry/{}'.format(loaded_db_item.id),
+                        {'title': 'new title', 'text': 'new text'})
+    new = DBSession.query(Entry).filter(Entry.id == loaded_db_item.id).first()
+    assert new.title == 'new title'
+    assert new.text == 'new text'
 
 
 def test_edit_entry_view_unit(loaded_db_item, dummy_post):
@@ -46,15 +47,16 @@ def test_edit_entry_view_unit(loaded_db_item, dummy_post):
     assert response.status_code == 302
 
 
-# def test_add_entry_view_functional(app):
-#     """Test if the db updates upon request."""
-#     from learning_journal.models import Entry, DBSession
-#     app.post('/add_entry', {'title': 'fancy title', 'text': 'new text'})
-#     new_entry = DBSession.query(Entry).filter(
-#                 Entry.title == 'fancy title').first()
-#     assert new_entry.id
-#     assert new_entry.title == 'fancy title'
-#     assert new_entry.text == 'new text'
+def test_add_entry_view_functional(authorized_app):
+    """Test if the db updates upon request."""
+    from learning_journal.models import Entry, DBSession
+    authorized_app.post('/add_entry', {'title': 'fancy title',
+                                       'text': 'new text'})
+    new_entry = DBSession.query(Entry).filter(
+                Entry.title == 'fancy title').first()
+    assert new_entry.id
+    assert new_entry.title == 'fancy title'
+    assert new_entry.text == 'new text'
 
 
 def test_add_entry_view_unit_POST_new(dummy_post):
@@ -86,12 +88,10 @@ def test_no_access_to_add_view(app):
 
 
 def test_pass_exists():
-    import os
     assert os.environ.get('AUTH_PASSWORD', None) is not None
 
 
 def test_username_exists():
-    import os
     assert os.environ.get('AUTH_USERNAME', None) is not None
 
 
@@ -105,8 +105,21 @@ def test_hashed_password_valid(auth_env):
     assert check_pw('secret')
 
 
-def test_assert_login_post_functional(auth_env, app):
+def test_post_login_success_auth_tkt_present(auth_env, app):
     data = {'login': 'admin', 'password': 'secret'}
-    init_response = app.get('/add_entry')
+    response = app.post('/login', data)
+    headers = response.headers
+    cookies_set = headers.getall('Set-Cookie')
+    assert cookies_set
+    for cookie in cookies_set:
+        if cookie.startswith('auth_tkt'):
+            break
+    else:
+        assert False
+
+
+def test_assert_login_post_redirect_functional(auth_env, app):
+    data = {'login': 'admin', 'password': 'secret'}
+    app.get('/add_entry')
     response = app.post('/add_entry', data)
-    assert 'title' in response.text.lower()
+    assert response.status_code == 302

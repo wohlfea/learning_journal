@@ -83,16 +83,13 @@ def login(request):
     message = ''
     login = ''
     password = ''
-    if 'login' in request.params or 'password' in request.params:
+    if 'login' in request.params and 'password' in request.params:
         login = request.params['login']
         password = request.params['password']
-        print('validating pw')
         if check_pw(password):
-            print('PW is Good!')
             headers = remember(request, login)
             return HTTPFound(location=came_from,
                              headers=headers)
-        print('PW is Bad!')
         message = 'Incorrect Username or Password.'
     return dict(
         message=message,

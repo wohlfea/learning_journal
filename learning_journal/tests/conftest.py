@@ -67,9 +67,17 @@ def dummy_post(dbtransaction):
     return req
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def auth_env():
     from passlib.apps import custom_app_context as pwd_context
     import os
     os.environ['AUTH_PASSWORD'] = pwd_context.encrypt('secret')
     os.environ['AUTH_USERNAME'] = 'admin'
+
+
+@pytest.fixture()
+def authorized_app(auth_env, app):
+    data = {'login': 'admin', 'password': 'secret'}
+    app.get('/add_entry')
+    app.post('/add_entry', data)
+    return app
