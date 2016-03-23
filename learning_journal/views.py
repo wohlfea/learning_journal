@@ -97,4 +97,5 @@ def login_view(request):
 
 @view_config(route_name='logout', renderer='string')
 def logout_view(request):
-    return 'I am logout.'
+    headers = forget(request)
+    return HTTPFound(location='/', headers=headers)
