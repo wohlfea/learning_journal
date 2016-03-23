@@ -16,6 +16,11 @@ def test_no_access_to_view(app):
     assert response.status_code == 403
 
 
-def test_access_to_view(app):
+def test_access_to_login(app):
     response = app.get('/login', status=200)
+    assert response.status_code == 200
+
+
+def test_access_to_logout(app):
+    response = app.get('/logout', status=200)
     assert response.status_code == 200

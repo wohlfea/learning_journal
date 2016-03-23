@@ -86,6 +86,6 @@ def login_view(request):
     return 'I am login.'
 
 
-# @view_config(route_name='logout', renderer='string')
-# def secure_view(request):
-#     return 'I am logout.'
+@view_config(route_name='logout', renderer='string')
+def logout_view(request):
+    return 'I am logout.'
