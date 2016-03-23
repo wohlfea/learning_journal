@@ -1,6 +1,14 @@
 {% extends "index.html" %}
-{% block content %}
+    {% block navbar %}
+    {% if request.has_permission('edit') %}
+    <li><a href="/logout">Logout</a></li>
+    {% else %}
+    <li class="active"><a href="/login">Login</a></li>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
     <div class="container">
+        {% if request.has_permission('edit') %}
         <div class="row">
             <div class="col-sm-9">
             </div>
@@ -8,6 +16,7 @@
                 <a class="btn btn-primary" href="/add_entry">Create New Entry</a>
             </div>
         </div>
+        {% endif %}
     </div>
     {% for article in articles[::-1] %}
     <div class="row">

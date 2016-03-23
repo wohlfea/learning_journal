@@ -75,9 +75,8 @@ def edit_entry_view(request):
              renderer='templates/login.jinja2')
 @forbidden_view_config(renderer='templates/login.jinja2')
 def login(request):
-    login_url = request.resource_url(request.context, 'login')
     referrer = request.url
-    if referrer == login_url:
+    if 'login' in referrer:
         referrer = '/'
     came_from = request.params.get('came_from', referrer)
     message = ''
@@ -100,8 +99,9 @@ def login(request):
     )
 
 
-@view_config(context='.models.Entry', name='logout')
+@view_config(context='learning_journal.security.MyRoot', name='logout',
+             renderer='templates/list.jinja2')
 def logout(request):
     headers = forget(request)
-    return HTTPFound(location=request.resource_url(request.context),
+    return HTTPFound(location='/',
                      headers=headers)

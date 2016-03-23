@@ -123,3 +123,28 @@ def test_assert_login_post_redirect_functional(auth_env, app):
     app.get('/add_entry')
     response = app.post('/add_entry', data)
     assert response.status_code == 302
+
+
+def test_assert_login_post_redirect_from_login_functional(auth_env, app):
+    data = {'login': 'admin', 'password': 'secret'}
+    response = app.post('/login', data)
+    assert response.status_code == 302
+    assert '/login' not in response.location
+
+
+def test_login_displayed_when_logged_out(app):
+    response = app.get('/')
+    assert 'href="/login"' in response.text
+    assert 'href="/logout"' not in response.text
+
+
+def test_logout_displayed_when_logged_in(authorized_app):
+    response = authorized_app.get('/')
+    assert 'href="/logout"' in response.text
+    assert 'href="/login"' not in response.text
+
+
+def test_logout_functional(authorized_app):
+    response = authorized_app.get('/logout')
+    headers = response.headers.getall('Set-Cookie')
+    assert 'auth_tkt=;' in headers[0]

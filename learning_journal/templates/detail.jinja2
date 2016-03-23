@@ -1,4 +1,11 @@
 {% extends "index.html" %}
+{% block navbar %}
+{% if request.has_permission('edit') %}
+<li><a href="/logout">Logout</a></li>
+{% else %}
+<li class="active"><a href="/login">Login</a></li>
+{% endif %}
+{% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
