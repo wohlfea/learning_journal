@@ -95,12 +95,12 @@ def test_username_exists():
     assert os.environ.get('AUTH_USERNAME', None) is not None
 
 
-def test_password_check_bad():
+def test_password_check_bad(auth_env):
     from learning_journal.security import check_pw
     assert not check_pw('bad password')
 
 
-def test_password_valid():
+def test_password_valid(auth_env):
     import os
     from learning_journal.security import check_pw
-    assert check_pw(os.environ.get('AUTH_PASSWORD'))
+    assert check_pw('secret')

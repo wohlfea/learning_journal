@@ -65,3 +65,11 @@ def dummy_post(dbtransaction):
     md.add('text', 'dummy text')
     req.POST = md
     return req
+
+
+@pytest.fixture()
+def auth_env():
+    from passlib.apps import custom_app_context as pwd_context
+    import os
+    os.environ['AUTH_PASSWORD'] = pwd_context.encrypt('secret')
+    os.environ['AUTH_USERNAME'] = 'admin'

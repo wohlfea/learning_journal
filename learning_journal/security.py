@@ -4,9 +4,11 @@ from pyramid.security import (
     Everyone,
     Authenticated,
 )
+from passlib.apps import custom_app_context as pwd_context
 
 def check_pw(pw):
-    return pw == os.environ.get('AUTH_PASSWORD')
+    hashed = os.environ.get('AUTH_PASSWORD')
+    return pwd_context.verify(pw, hashed)
 
 class MyRoot(object):
     __acl__ = [
