@@ -36,7 +36,7 @@ def detail_view(request):
     return {'article': article, 'text': text}
 
 
-@view_config(route_name='add_entry', renderer='templates/add_entry.jinja2')
+@view_config(route_name='add_entry', renderer='templates/add_entry.jinja2', permission='edit')
 def add_entry_view(request):
     """Add entry view."""
     form = EntryForm(request.POST)
@@ -56,7 +56,7 @@ def add_entry_view(request):
     return {}
 
 
-@view_config(route_name='edit_entry', renderer='templates/edit_entry.jinja2')
+@view_config(route_name='edit_entry', renderer='templates/edit_entry.jinja2', permission='edit')
 def edit_entry_view(request):
     """Edit entry view."""
     article_id = request.matchdict['article_id']

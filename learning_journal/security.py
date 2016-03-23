@@ -14,7 +14,7 @@ from passlib.apps import custom_app_context as pl
 class DefaultRoot(object):
     """I Hope this is the right place for an acl."""
     __acl__ = [(Allow, Everyone, 'view'),
-               (Allow, Authenticated, ALL_PERMISSIONS)]
+               (Allow, Authenticated, 'edit')]
     # __acl__ = [(Allow, 'jared', 'chicken')]
 
     def __init__(self, request):
