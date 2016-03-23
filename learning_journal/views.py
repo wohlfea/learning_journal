@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 import markdown
 from pyramid.httpexceptions import HTTPFound, HTTPForbidden
-from pyramid.view import view_config
+from pyramid.view import (
+    view_config,
+    forbidden_view_config,
+    )
 from .models import (
     DBSession,
     Entry,
 )
+from pyramid.security import (
+    remember,
+    forget,
+    )
+
 from learning_journal.forms import EntryForm
 
 
@@ -71,3 +79,13 @@ def forbidden_view(request):
 @view_config(route_name='secure', renderer='string', permission='chicken')
 def secure_view(request):
     return 'I am secure.'
+
+
+@view_config(route_name='login', renderer='string')
+def login_view(request):
+    return 'I am login.'
+
+
+# @view_config(route_name='logout', renderer='string')
+# def secure_view(request):
+#     return 'I am logout.'

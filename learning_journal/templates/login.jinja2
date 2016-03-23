@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+<section>
+        <form>
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <label for="login">Login</label>
+                    <input class="u-full-width" type="text" placeholder="email" 
+                    id="login" required>
+                </div>
+                <div class="six columns"></div>
+            </div>
+            <div class="row">
+                <div class="one column"></div>
+                <div class="five columns">
+                    <label for="password">Password</label>
+                    <input class="u-full-width" placeholder="Password" id="password">
+                </div>
+            </div>
+            <input class="button-primary" type="submit" value="Submit">
+        </form>
+    </section>
+{% endblock %}
