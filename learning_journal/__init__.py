@@ -21,7 +21,7 @@ class DefaultRoot(object):
     """I Hope this is the right place for an acl."""
     # __acl__ = [(Allow, Everyone, 'view'),
     #            (Allow, Authenticated, ALL_PERMISSIONS)]
-    __acl__ = [(Allow, Everyone, 'chicken')]
+    __acl__ = [(Allow, 'jared', 'chicken')]
 
     def __init__(self, request):
         """Init."""
