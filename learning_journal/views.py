@@ -16,33 +16,17 @@ from .models import (
 from learning_journal.forms import EntryForm
 
 
-@view_config(route_name='home', renderer='templates/list.jinja2')
+@view_config(route_name='home', renderer='templates/list.jinja2',
+             permission='view')
 def list_view(request):
     """List view."""
     articles = DBSession.query(Entry).all()
     return {'articles': articles}
 
 
-@view_config(route_name='home_admin', renderer='templates/list_admin.jinja2',
-             permission='edit')
-def list_admin_view(request):
-    articles = DBSession.query(Entry).all()
-    return {'articles': articles}
-
-
-@view_config(route_name='article', renderer='templates/detail.jinja2')
+@view_config(route_name='article', renderer='templates/detail.jinja2',
+             permission='view')
 def detail_view(request):
-    """Detail view."""
-    md = markdown.Markdown(safe_mode='replace', html_replacement_text='NO')
-    article_id = request.matchdict['article_id']
-    article = DBSession.query(Entry).get(article_id)
-    text = md.convert(article.text)
-    return {'article': article, 'text': text}
-
-
-@view_config(route_name='article_admin', renderer='templates/detail_admin.jinja2',
-             permission='edit')
-def detail_admin_view(request):
     """Detail view."""
     md = markdown.Markdown(safe_mode='replace', html_replacement_text='NO')
     article_id = request.matchdict['article_id']

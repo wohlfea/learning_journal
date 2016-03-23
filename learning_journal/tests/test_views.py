@@ -80,9 +80,9 @@ def test_add_entry_view_unit_GET(dummy_post):
     assert response == {}
 
 
-# def test_no_access_to_admin_view(app):
-#     response = app.get('/home')
-#     assert 'btn' in response.text
+def test_no_access_to_add_view(app):
+    response = app.get('/add_entry')
+    assert 'Log Me In!' in response.text
 
 
 def test_pass_exists():
