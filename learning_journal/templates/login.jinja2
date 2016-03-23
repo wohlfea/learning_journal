@@ -1,12 +1,12 @@
 {% extends "base.jinja2" %}
 {% block body %}
 <section>
-        <form>
+        <form action="" method="POST">
             <div class="row">
                 <div class="one column"></div>
                 <div class="five columns">
                     <label for="login">Login</label>
-                    <input class="u-full-width" type="text" placeholder="email" 
+                    <input class="u-full-width" type="text" name="username" placeholder="email" 
                     id="login" required>
                 </div>
                 <div class="six columns"></div>
@@ -15,7 +15,7 @@
                 <div class="one column"></div>
                 <div class="five columns">
                     <label for="password">Password</label>
-                    <input class="u-full-width" type="password" placeholder="Password" id="password">
+                    <input class="u-full-width" name="password" type="password" placeholder="Password" id="password">
                 </div>
             </div>
             <input class="button-primary" type="submit" value="Submit">

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from pyramid.authentication import AuthTktAuthenticationPolicy

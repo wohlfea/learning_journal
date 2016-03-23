@@ -15,6 +15,8 @@ from pyramid.security import (
     )
 
 from learning_journal.forms import EntryForm
+from learning_journal.forms import LoginForm
+from learning_journal.security import check_pwd
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2')
@@ -83,7 +85,13 @@ def secure_view(request):
 
 @view_config(route_name='login', renderer='templates/login.jinja2')
 def login_view(request):
-    
+    form = LoginForm(request.POST)
+    username = request.params.get('username', '')
+    password = request.params.get('password', '')
+    if request.method == 'POST' and form.validate():
+        if check_pwd(password):
+            headers = remember(request, username)
+            return HTTPFound(location='/', headers=headers)
     return {}
 
 

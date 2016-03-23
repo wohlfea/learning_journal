@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import os
 import pytest
+from passlib.apps import custom_app_context as pl
 import webtest
 
 from learning_journal import main
@@ -14,7 +17,7 @@ def app():
 
 @pytest.fixture()
 def auth_env():
-    os.environ['AUTH_PASSWORD'] = 'secret'
+    os.environ['AUTH_PASSWORD'] = pl.encrypt('secret')
     os.environ['AUTH_USERNAME'] = 'admin'
 
 
@@ -45,3 +48,13 @@ def test_check_password_success(auth_env):
     from learning_journal.security import check_pwd
     password = 'secret'
     assert check_pwd(password)
+
+
+def stored_password_is_encrypted(auth_env):
+    assert os.environ.get('AUTH_PASSWORD', None) != 'secret'
+
+
+def test_check_w_fails(auth_env):
+    from learning_journal.security import check_pwd
+    password = 'not it'
+    assert not check_pwd(password)

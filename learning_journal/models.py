@@ -30,12 +30,5 @@ class Entry(Base):
     created = Column(DateTime, default=datetime.datetime.utcnow)
 
 
-# Maybe switch this to just checking the password. Don't need users or groups
-class User(object):
-    def __init__(self, login, password, groups=None):
-        self.login = login
-        self.password = password
-        self.groups = groups or []
-
-    def check_password(self, passwd):
-        return self.password == passwd
+# class LoginForm(Base):
+    

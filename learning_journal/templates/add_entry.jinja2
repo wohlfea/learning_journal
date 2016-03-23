@@ -7,7 +7,7 @@
                 <div class="five columns">
                     <h4>{{ error_msg }}</h4>
                     <label for="title">Title</label>
-                    <input class="u-full-width" type="text" value="{{ rej_title }}" placeholder="Title" 
+                    <input class="u-full-width" name="title" type="text" value="{{ rej_title }}" placeholder="Title" 
                     id="title" required>
                 </div>
                 <div class="six columns"></div>
@@ -16,7 +16,7 @@
                 <div class="one column"></div>
                 <div class="five columns">
                     <label for="entry">Entry</label>
-                    <textarea class="u-full-width" placeholder="Add an entry …" id="add-entry">{{ rej_text }}</textarea>
+                    <textarea class="u-full-width" name="text" placeholder="Add an entry …" id="add-entry">{{ rej_text }}</textarea>
                 </div>
             </div>
             <input class="button-primary" type="submit" value="Submit">
