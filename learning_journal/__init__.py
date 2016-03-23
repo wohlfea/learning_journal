@@ -1,32 +1,15 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
-
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 
-from pyramid.security import (
-    Allow,
-    Everyone,
-    ALL_PERMISSIONS,
-    Authenticated
-    )
 
 from .models import (
     DBSession,
     Base,
     )
 
-
-class DefaultRoot(object):
-    """I Hope this is the right place for an acl."""
-    # __acl__ = [(Allow, Everyone, 'view'),
-    #            (Allow, Authenticated, ALL_PERMISSIONS)]
-    __acl__ = [(Allow, 'jared', 'chicken')]
-
-    def __init__(self, request):
-        """Init."""
-        self.request = request
-
+from .security import DefaultRoot
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application."""

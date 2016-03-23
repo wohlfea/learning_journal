@@ -1,6 +1,6 @@
 {% extends "base.jinja2" %}
 {% block body %}
-    <a href="/add_entry">Add Entry</a>
+    <li><a class="button" href="/add_entry">Add</a></li>
     {% for article in articles[::-1] %}
         <h4><a href="/article/{{ article.id }}">{{ article.title }}</a></h4>
         <p>{{ article.created }}</p>

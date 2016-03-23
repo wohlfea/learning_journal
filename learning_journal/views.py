@@ -81,9 +81,10 @@ def secure_view(request):
     return 'I am secure.'
 
 
-@view_config(route_name='login', renderer='string')
+@view_config(route_name='login', renderer='templates/login.jinja2')
 def login_view(request):
-    return 'I am login.'
+    
+    return {}
 
 
 @view_config(route_name='logout', renderer='string')
