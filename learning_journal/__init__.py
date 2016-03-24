@@ -12,13 +12,9 @@ from .models import (
 
 from .security import DefaultRoot
 
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application."""
-    # This is a new way to do this with the environment variables instead.
-    # database_url = os.environ.get('DATABASE_URL', None)
-    # if database_url is not None:
-    #     settings['sqlalchemy.url'] = database_url
-
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine

@@ -28,7 +28,3 @@ class Entry(Base):
     title = Column(Unicode(128), unique=True, nullable=False)
     text = Column(UnicodeText)
     created = Column(DateTime, default=datetime.datetime.utcnow)
-
-
-# class LoginForm(Base):
-    
