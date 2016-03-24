@@ -71,6 +71,16 @@ def edit_entry_view(request):
     return {'article': article}
 
 
+@view_config(route_name='delete_entry', renderer='templates/list.jinja2',
+             permission='edit')
+def delete_entry(request):
+    article_id = request.matchdict['article_id']
+    article = DBSession.query(Entry).get(article_id)
+    DBSession.delete(article)
+    DBSession.flush()
+    return HTTPFound(location='/')
+
+
 @view_config(context='learning_journal.security.MyRoot', name='login',
              renderer='templates/login.jinja2')
 @forbidden_view_config(renderer='templates/login.jinja2')

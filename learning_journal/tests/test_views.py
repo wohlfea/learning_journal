@@ -148,3 +148,26 @@ def test_logout_functional(authorized_app):
     response = authorized_app.get('/logout')
     headers = response.headers.getall('Set-Cookie')
     assert 'auth_tkt=;' in headers[0]
+
+
+def test_logged_out_article_view_no_buttons(app):
+    response = app.get('/article/1')
+    assert 'href="/edit_entry/1"' not in response.text
+    assert 'href="/delete_entry/1"' not in response.text
+
+
+def test_logged_in_article_view_show_buttons(authorized_app):
+    response = authorized_app.get('/article/1')
+    assert 'href="/edit_entry/1"' in response.text
+    assert 'href="/delete_entry/1"' in response.text
+
+
+def test_delete_entry(loaded_db_item, authorized_app):
+    from learning_journal.models import Entry, DBSession
+    check_db = DBSession.query(Entry).filter(
+                Entry.title == 'jill').first()
+    assert check_db
+    authorized_app.get('/delete_entry/{}'.format(loaded_db_item.id))
+    check_db = DBSession.query(Entry).filter(
+                Entry.title == 'jill').first()
+    assert not check_db
