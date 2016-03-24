@@ -1,4 +1,18 @@
 {% extends "base.jinja2" %}
+{% block header %}
+    <nav>
+        <ul>
+            {% if request.has_permission('edit') %}
+                <li><a class="button" href="/">Home</a></li>
+                <li><a class="button" href="/add_entry">Add</a></li>
+                <li><a class="button" href="/logout">Logout</a></li>
+            {% else %}
+                <li><a class="button" href="/">Home</a></li>
+                <li><a class="button" href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
 {% block body %}
     <h4>{{ article.title }}</h4>
     {{ text|safe }}

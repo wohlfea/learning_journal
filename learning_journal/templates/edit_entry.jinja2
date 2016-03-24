@@ -1,4 +1,17 @@
 {% extends "base.jinja2" %}
+{% block header %}
+    <nav>
+        <ul>
+            {% if request.has_permission('edit') %}
+                <li><a class="button" href="/">Home</a></li>
+                <li><a class="button" href="/logout">Logout</a></li>
+            {% else %}
+                <li><a class="button" href="/">Home</a></li>
+                <li><a class="button" href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
 {% block body %}
     <form action="" method="POST">
         <h4>Title</h4>
