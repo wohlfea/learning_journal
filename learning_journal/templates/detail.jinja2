@@ -15,7 +15,9 @@
             <article>
                 <h1>{{ article.title }}</h1>
                 <p>{{ article.created.strftime("%B %d %Y -- %I:%M%p UTC") }}</p>
+                <hr>
                 {{ text|safe }}
+                <hr>
             </article>
         </div>
         <div class="col-sm-2">
