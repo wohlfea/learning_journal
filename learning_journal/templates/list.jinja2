@@ -1,7 +1,39 @@
-{% block content %}
-    <a href="/add_entry">Add Entry</a>
+
+{% extends "index.html" %}
+    {% block navbar %}
+    {% if request.has_permission('edit') %}
+    <li><a href="/logout">Logout</a></li>
+    {% else %}
+    <li><a href="/login">Login</a></li>
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+    <div class="container">
+        {% if request.has_permission('edit') %}
+        <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary" href="/add_entry">Create New Entry</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
     {% for article in articles[::-1] %}
-        <h4><a href="/article/{{ article.id }}">{{ article.title }}</a></h4>
-        <p>{{ article.created }}</p>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <section id="articles">
+                <article id="article_template">
+                    <h1><a href="/article/{{ article.id }}">{{ article.title }}</a></h1>
+                    <p>{{ article.created.strftime("%B %d %Y -- %I:%M%p UTC") }}</time>
+                </article>
+            </section>
+            <hr>
+        </div>
+        <div class="col-sm-2">
+        </div>
+    </div>
     {% endfor %}
 {% endblock %}

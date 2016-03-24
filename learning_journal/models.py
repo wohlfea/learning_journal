@@ -1,9 +1,7 @@
 import datetime
 from sqlalchemy import (
     Column,
-    Index,
     Integer,
-    Text,
     Unicode,
     UnicodeText,
     DateTime

@@ -1,7 +1,39 @@
+{% extends "index.html" %}
+{% block navbar %}
+{% if request.has_permission('edit') %}
+<li><a href="/logout">Logout</a></li>
+{% else %}
+<li><a href="/login">Login</a></li>
+{% endif %}
+{% endblock %}
 {% block content %}
-    <a href="/">Home</a>
-    <h4>{{ article.title }}</h4>
-    {{ text|safe }}
-    <p>{{ article.created }}</p>
-    <a href="/edit_entry/{{ article.id }}">Edit</a>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+            <article>
+                <h1>{{ article.title }}</h1>
+                <p>{{ article.created.strftime("%B %d %Y -- %I:%M%p UTC") }}</p>
+                {{ text|safe }}
+            </article>
+        </div>
+        <div class="col-sm-2">
+        </div>
+    </div>
+    {% if request.has_permission('edit') %}
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-default" href="/edit_entry/{{ article.id }}">Edit Entry</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-danger" href="/delete_entry/{{ article.id }}">Delete Entry</a>
+        </div>
+        <div class="col-sm-2">
+        </div>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

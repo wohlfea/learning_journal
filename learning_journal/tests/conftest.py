@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest
 from sqlalchemy import create_engine
-
 from learning_journal.models import DBSession, Base
 
 
@@ -33,7 +32,6 @@ def dbtransaction(request, sqlengine):
         DBSession.remove()
 
     request.addfinalizer(teardown)
-
     return connection
 
 
@@ -67,3 +65,19 @@ def dummy_post(dbtransaction):
     md.add('text', 'dummy text')
     req.POST = md
     return req
+
+
+@pytest.fixture(scope='session')
+def auth_env():
+    from passlib.apps import custom_app_context as pwd_context
+    import os
+    os.environ['AUTH_PASSWORD'] = pwd_context.encrypt('secret')
+    os.environ['AUTH_USERNAME'] = 'admin'
+
+
+@pytest.fixture()
+def authorized_app(auth_env, app):
+    data = {'login': 'admin', 'password': 'secret'}
+    app.get('/add_entry')
+    app.post('/add_entry', data)
+    return app
