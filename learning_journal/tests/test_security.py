@@ -54,7 +54,7 @@ def stored_password_is_encrypted(auth_env):
     assert os.environ.get('AUTH_PASSWORD', None) != 'secret'
 
 
-def test_check_w_fails(auth_env):
+def test_check_pwd_fails(auth_env):
     from learning_journal.security import check_pwd
     password = 'not it'
     assert not check_pwd(password)
