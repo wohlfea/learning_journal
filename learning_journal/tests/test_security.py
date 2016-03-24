@@ -1,24 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import os
-import pytest
-from passlib.apps import custom_app_context as pl
-import webtest
-
-from learning_journal import main
-
-
-@pytest.fixture()
-def app():
-    settings = {'sqlalchemy.url': 'postgres://jrockscarr:password@localhost:5432/lj_test'}
-    app = main({}, **settings)
-    return webtest.TestApp(app)
-
-
-@pytest.fixture()
-def auth_env():
-    os.environ['AUTH_PASSWORD'] = pl.encrypt('secret')
-    os.environ['AUTH_USERNAME'] = 'admin'
 
 
 def test_password_exist(auth_env):

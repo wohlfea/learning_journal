@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
 import pytest
 from sqlalchemy import create_engine
 
 from learning_journal.models import DBSession, Base
+from passlib.apps import custom_app_context as pl
+import webtest
+
+from learning_journal import main
 
 
 TEST_DATABASE_URL = 'postgres://jrockscarr:password@localhost:5432/lj_test'
@@ -68,6 +73,19 @@ def dummy_post(dbtransaction):
     md.add('text', 'dummy text')
     req.POST = md
     return req
+
+
+@pytest.fixture()
+def app():
+    settings = {'sqlalchemy.url': 'postgres://jrockscarr:password@localhost:5432/lj_test'}
+    app = main({}, **settings)
+    return webtest.TestApp(app)
+
+
+@pytest.fixture()
+def auth_env():
+    os.environ['AUTH_PASSWORD'] = pl.encrypt('secret')
+    os.environ['AUTH_USERNAME'] = 'admin'
 
 
 @pytest.fixture()
