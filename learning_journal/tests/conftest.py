@@ -6,6 +6,7 @@ from learning_journal.models import DBSession, Base
 
 
 TEST_DATABASE_URL = 'postgres://jrockscarr:password@localhost:5432/lj_test'
+DATA_SUCCESS = {'username': 'jaredscarr', 'password': 'pirateninja'}
 
 
 @pytest.fixture(scope='session')
@@ -67,3 +68,9 @@ def dummy_post(dbtransaction):
     md.add('text', 'dummy text')
     req.POST = md
     return req
+
+
+@pytest.fixture()
+def authenticated_app(app, auth_env):
+    app.post('/login', DATA_SUCCESS)
+    return app

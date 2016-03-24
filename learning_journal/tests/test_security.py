@@ -39,9 +39,9 @@ def test_access_to_login(app):
     assert response.status_code == 200
 
 
-def test_access_to_logout(app):
-    response = app.get('/logout', status=200)
-    assert response.status_code == 200
+def test_access_to_logout(authenticated_app):
+    response = authenticated_app.get('/logout', status=302)
+    assert response.status_code == 302
 
 
 def test_check_password_success(auth_env):
