@@ -1,9 +1,10 @@
+
 {% extends "index.html" %}
     {% block navbar %}
     {% if request.has_permission('edit') %}
     <li><a href="/logout">Logout</a></li>
     {% else %}
-    <li class="active"><a href="/login">Login</a></li>
+    <li><a href="/login">Login</a></li>
     {% endif %}
     {% endblock %}
     {% block content %}
@@ -26,7 +27,7 @@
             <section id="articles">
                 <article id="article_template">
                     <h1><a href="/article/{{ article.id }}">{{ article.title }}</a></h1>
-                    <p>Published: {{ article.created }}</time>
+                    <p>{{ article.created.strftime("%B %d %Y -- %I:%M%p UTC") }}</time>
                 </article>
             </section>
             <hr>

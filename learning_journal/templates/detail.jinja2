@@ -3,7 +3,7 @@
 {% if request.has_permission('edit') %}
 <li><a href="/logout">Logout</a></li>
 {% else %}
-<li class="active"><a href="/login">Login</a></li>
+<li><a href="/login">Login</a></li>
 {% endif %}
 {% endblock %}
 {% block content %}
@@ -14,7 +14,7 @@
         <div class="col-sm-8">
             <article>
                 <h1>{{ article.title }}</h1>
-                <p>Published: DATETIME</p>
+                <p>{{ article.created.strftime("%B %d %Y -- %I:%M%p UTC") }}</p>
                 {{ text|safe }}
             </article>
         </div>

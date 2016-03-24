@@ -15,6 +15,7 @@ from .models import (
 )
 from learning_journal.forms import EntryForm
 from learning_journal.security import check_pw
+import os
 
 
 @view_config(route_name='home', renderer='templates/list.jinja2',
@@ -71,8 +72,7 @@ def edit_entry_view(request):
     return {'article': article}
 
 
-@view_config(route_name='delete_entry', renderer='templates/list.jinja2',
-             permission='edit')
+@view_config(route_name='delete_entry', permission='edit')
 def delete_entry(request):
     article_id = request.matchdict['article_id']
     article = DBSession.query(Entry).get(article_id)
@@ -95,7 +95,7 @@ def login(request):
     if 'login' in request.params and 'password' in request.params:
         login = request.params['login']
         password = request.params['password']
-        if check_pw(password):
+        if check_pw(password) and login == os.environ.get('AUTH_USERNAME'):
             headers = remember(request, login)
             return HTTPFound(location=came_from,
                              headers=headers)
@@ -109,9 +109,7 @@ def login(request):
     )
 
 
-@view_config(context='learning_journal.security.MyRoot', name='logout',
-             renderer='templates/list.jinja2')
+@view_config(context='learning_journal.security.MyRoot', name='logout')
 def logout(request):
     headers = forget(request)
-    return HTTPFound(location='/',
-                     headers=headers)
+    return HTTPFound(location='/', headers=headers)
